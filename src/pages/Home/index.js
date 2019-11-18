@@ -35,7 +35,7 @@ export default class Home extends Component {
         <ImageProduct source={{ uri: item.image }} />
         <Description>{item.title}</Description>
         <Price>{item.price}</Price>
-        <AddToCart onPress={this.props.navigation.navigate('Cart')}>
+        <AddToCart>
           <Icon name="add-shopping-cart" color="#FFF" size={20} />
           <Amount>1</Amount>
           <TextButton>Adicionar ao Carrinho</TextButton>
