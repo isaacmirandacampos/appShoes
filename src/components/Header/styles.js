@@ -1,12 +1,17 @@
 import styled from 'styled-components/native';
-import { RectButton } from 'react-native-gesture-handler';
+import { Dimensions } from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import colors from '../../styles/colors';
 import logo from '../../assets/images/logo.png';
 
 export const Wrapper = styled.SafeAreaView`
-  flex: 0;
+  flex: 1;
   background: ${colors.dark};
   flex-direction: row;
+  max-height: 30px;
 `;
 
 export const Container = styled.View`
@@ -14,6 +19,13 @@ export const Container = styled.View`
   flex: 1;
   justify-content: space-between;
   padding: 20px;
+`;
+export const LogoContainer = styled.TouchableOpacity`
+  width: 200px;
+  height: 40px;
+  position: absolute;
+  top: ${hp('1%')};
+  left: ${hp('3%')};
 `;
 
 export const Logo = styled.Image.attrs({
@@ -24,13 +36,12 @@ export const Logo = styled.Image.attrs({
   height: 24px;
 `;
 
-export const BasketContainer = styled(RectButton)`
+export const BasketContainer = styled.TouchableOpacity`
   height: 24px;
-  background-color: transparent;
   width: 24px;
-  flex: 1;
-  align-items: flex-end;
-  justify-content: flex-end;
+  position: absolute;
+  left: ${wp('88%')};
+  top: ${hp('1.5%')};
 `;
 
 export const ItemCount = styled.Text`

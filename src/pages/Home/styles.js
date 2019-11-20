@@ -2,14 +2,17 @@ import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import colors from '../../styles/colors';
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  height: 100%;
+  background-color: ${colors.dark};
+`;
 
 export const Product = styled.View`
   background-color: #fff;
   border-radius: 7px;
   padding: 20px;
-  width: 300px;
-  height: 480px;
+  max-width: 300px;
+  max-height: 480px;
   margin: 90px 15px;
 `;
 export const ImageProduct = styled.Image`
@@ -39,9 +42,10 @@ export const AddToCart = styled(RectButton)`
 export const TextButton = styled.Text`
   color: #fff;
   text-align: center;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
   margin-left: 4px;
+  text-transform: uppercase;
 `;
 
 export const Amount = styled.Text`

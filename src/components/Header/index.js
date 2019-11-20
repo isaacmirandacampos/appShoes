@@ -1,16 +1,24 @@
 import React from 'react';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Wrapper, Container, Logo, BasketContainer, ItemCount } from './styles';
+import {
+  Wrapper,
+  Container,
+  Logo,
+  BasketContainer,
+  ItemCount,
+  LogoContainer,
+} from './styles';
 
-// navigation.navigate('Home')
-export default function Header({ navigate }) {
+export default function Header({ onPress, goBack }) {
   return (
     <Wrapper>
       <Container>
-        <Logo />
-        <BasketContainer onPress={() => navigate('Cart')}>
-          <Icon name="shopping-basket" color="#FFF" size={24} />
+        <LogoContainer onPress={goBack}>
+          <Logo />
+        </LogoContainer>
+        <BasketContainer onPress={onPress}>
+          <Icon name="shopping-basket" color="#fff" size={24} />
           <ItemCount>3</ItemCount>
         </BasketContainer>
       </Container>
