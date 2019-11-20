@@ -8,17 +8,21 @@ export const Container = styled.View`
   padding: 20px;
   border-radius: 7px;
   background-color: #fff;
+  max-height: 90%;
+`;
+export const ListCart = styled.ScrollView`
+  background-color: #fff;
+  padding: 20px;
 `;
 export const Product = styled.View`
   flex-direction: row;
   align-items: center;
+  margin-bottom: 10px;
 `;
 export const Wrapper = styled.View`
   margin-right: 10px;
 `;
-export const ImageProduct = styled.Image.attrs({
-  source: tenis,
-})`
+export const ImageProduct = styled.Image`
   width: 120px;
   height: 120px;
   margin-right: 10px;
@@ -41,6 +45,7 @@ export const SubTotalView = styled.View`
   align-items: center;
   border-radius: 4px;
   padding: 10px;
+  margin-bottom: 20px;
 `;
 
 export const CountView = styled.View`
@@ -66,18 +71,19 @@ export const TextTotal = styled.Text`
   font-weight: bold;
   text-align: center;
   font-size: 22px;
-  margin-top: 20px;
+  margin-top: 5px;
 `;
 export const PriceTotal = styled.Text`
   font-weight: bold;
   text-align: center;
-  font-size: 32px;
-  margin-bottom: 10px;
+  font-size: 30px;
+  margin-bottom: 5px;
 `;
 export const BuyButton = styled(RectButton)`
   background-color: ${colors.primary};
   padding: 10px;
   border-radius: 8px;
+  margin-top: auto;
 `;
 export const TextBuyButton = styled.Text`
   color: #fff;

@@ -1,5 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux';
+import { FlatList } from 'react-native';
 
 import colors from '../../styles/colors';
 import {
@@ -17,44 +19,42 @@ import {
   PriceTotal,
   BuyButton,
   TextBuyButton,
+  ListCart,
 } from './styles';
 
-export default function Cart() {
+function Cart({ cart }) {
   return (
     <Container>
-      <Product>
-        <ImageProduct />
-        <Wrapper>
-          <Description>Tênis muito maneiro</Description>
-          <Price>R$129,90</Price>
-        </Wrapper>
-        <Icon name="delete-forever" size={24} color={colors.primary} />
-      </Product>
-      <SubTotalView>
-        <CountView>
-          <Icon name="add-circle-outline" size={24} color={colors.primary} />
-          <Amount editable={false}>3</Amount>
-          <Icon name="remove-circle-outline" size={24} color={colors.primary} />
-        </CountView>
-        <SubTotal>R$400.90</SubTotal>
-      </SubTotalView>
-
-      <Product>
-        <ImageProduct />
-        <Wrapper>
-          <Description>Tênis muito maneiro</Description>
-          <Price>R$129,90</Price>
-        </Wrapper>
-        <Icon name="delete-forever" size={24} color={colors.primary} />
-      </Product>
-      <SubTotalView>
-        <CountView>
-          <Icon name="add-circle-outline" size={24} color={colors.primary} />
-          <Amount editable={false}>3</Amount>
-          <Icon name="remove-circle-outline" size={24} color={colors.primary} />
-        </CountView>
-        <SubTotal>R$400.90</SubTotal>
-      </SubTotalView>
+      <ListCart showsVerticalScrollIndicator={false}>
+        {cart.map(product => (
+          <>
+            <Product>
+              <ImageProduct source={{ uri: product.image }} />
+              <Wrapper>
+                <Description>{product.title}</Description>
+                <Price>{product.priceFormatted}</Price>
+              </Wrapper>
+              <Icon name="delete-forever" size={24} color={colors.primary} />
+            </Product>
+            <SubTotalView>
+              <CountView>
+                <Icon
+                  name="add-circle-outline"
+                  size={24}
+                  color={colors.primary}
+                />
+                <Amount editable={false}>3</Amount>
+                <Icon
+                  name="remove-circle-outline"
+                  size={24}
+                  color={colors.primary}
+                />
+              </CountView>
+              <SubTotal>R$400.90</SubTotal>
+            </SubTotalView>
+          </>
+        ))}
+      </ListCart>
       <TextTotal>Total</TextTotal>
       <PriceTotal>R$ 1612,10</PriceTotal>
       <BuyButton>
@@ -63,3 +63,8 @@ export default function Cart() {
     </Container>
   );
 }
+
+const mapStateToProps = state => ({
+  cart: state.cart,
+});
+export default connect(mapStateToProps)(Cart);

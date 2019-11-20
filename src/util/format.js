@@ -1,8 +1,7 @@
 import numeral from 'numeral';
-import 'numeral/locales/pt-br';
+import 'numeral/locales';
 
 numeral.locale('pt-br');
-
-export const formatPrice = value => {
-  numeral(value).format('$0,0.00');
-};
+export default function formatPrice(value) {
+  return numeral(value).format('$0,0.00');
+}

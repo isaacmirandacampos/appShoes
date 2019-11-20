@@ -13,22 +13,25 @@ export const Product = styled.View`
   padding: 20px;
   max-width: 300px;
   max-height: 480px;
-  margin: 90px 15px;
+  margin: 50px 15px;
 `;
 export const ImageProduct = styled.Image`
   height: 250px;
   width: 250px;
+  flex: 3;
 `;
 export const Description = styled.Text`
   overflow: hidden;
   font-size: 20px;
+  flex: 1;
 `;
 export const Price = styled.Text`
   margin: 10px 0px;
+  flex: 0.7;
   font-size: 30px;
   font-weight: bold;
 `;
-export const AddToCart = styled(RectButton)`
+export const AddToCart = styled.TouchableOpacity`
   padding: 15px;
   width: 260px;
   border-radius: 7px;

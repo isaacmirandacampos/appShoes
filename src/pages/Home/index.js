@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import { FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { formatPrice } from '../../util/format';
+import * as CartActions from '../../store/modules/cart/actions';
+
+import formatPrice from '../../util/format';
 
 import {
   Container,
@@ -15,7 +20,7 @@ import {
 } from './styles';
 import api from '../../services/api';
 
-export default class Home extends Component {
+class Home extends Component {
   state = {
     products: [],
   };
@@ -26,7 +31,17 @@ export default class Home extends Component {
 
   getProduct = async () => {
     const response = await api.get('/products');
-    this.setState({ products: response.data });
+
+    const data = response.data.map(product => ({
+      ...product,
+      priceFormatted: formatPrice(product.price),
+    }));
+    this.setState({ products: data });
+  };
+
+  handlerAddRequest = product => {
+    const { addToCartRequest } = this.props;
+    addToCartRequest(product);
   };
 
   renderProduct = ({ item }) => {
@@ -34,8 +49,8 @@ export default class Home extends Component {
       <Product>
         <ImageProduct source={{ uri: item.image }} />
         <Description>{item.title}</Description>
-        <Price>{item.price}</Price>
-        <AddToCart>
+        <Price>{item.priceFormatted}</Price>
+        <AddToCart onPress={() => this.handlerAddRequest(item)}>
           <Icon name="add-shopping-cart" color="#FFF" size={20} />
           <Amount>1</Amount>
           <TextButton>Adicionar ao Carrinho</TextButton>
@@ -59,3 +74,6 @@ export default class Home extends Component {
     );
   }
 }
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+export default connect(null, mapDispatchToProps)(Home);
