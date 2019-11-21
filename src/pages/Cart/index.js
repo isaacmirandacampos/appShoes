@@ -11,6 +11,7 @@ import {
   Description,
   Price,
   SubTotalView,
+  ButtonAmount,
   CountView,
   Amount,
   SubTotal,
@@ -38,17 +39,21 @@ function Cart({ cart }) {
             </Product>
             <SubTotalView>
               <CountView>
-                <Icon
-                  name="add-circle-outline"
-                  size={24}
-                  color={colors.primary}
-                />
-                <Amount editable={false}>3</Amount>
-                <Icon
-                  name="remove-circle-outline"
-                  size={24}
-                  color={colors.primary}
-                />
+                <ButtonAmount>
+                  <Icon
+                    name="add-circle-outline"
+                    size={24}
+                    color={colors.primary}
+                  />
+                </ButtonAmount>
+                <Amount editable={false}>{product.amount}</Amount>
+                <ButtonAmount>
+                  <Icon
+                    name="remove-circle-outline"
+                    size={24}
+                    color={colors.primary}
+                  />
+                </ButtonAmount>
               </CountView>
               <SubTotal>R$400.90</SubTotal>
             </SubTotalView>

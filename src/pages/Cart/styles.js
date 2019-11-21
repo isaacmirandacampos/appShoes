@@ -52,6 +52,8 @@ export const CountView = styled.View`
   flex-direction: row;
 `;
 
+export const ButtonAmount = styled.TouchableOpacity``;
+
 export const Amount = styled.TextInput`
   background-color: #fff;
   color: #000;

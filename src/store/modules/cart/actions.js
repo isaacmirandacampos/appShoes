@@ -19,9 +19,10 @@ export function UpdateAmountRequest(id) {
   };
 }
 
-export function UpdateAmountSuccess(product) {
+export function UpdateAmountSuccess(id, amount) {
   return {
     type: '@cart/UPDATE_AMOUNT_SUCCESS',
-    product,
+    id,
+    amount,
   };
 }

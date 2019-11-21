@@ -19,7 +19,7 @@ function Header({ onPress, goBack, cartSize }) {
         </LogoContainer>
         <BasketContainer onPress={onPress}>
           <Icon name="shopping-basket" color="#fff" size={24} />
-          <ItemCount>{cartSize}</ItemCount>
+          {cartSize >= 1 ? <ItemCount>{cartSize}</ItemCount> : null}
         </BasketContainer>
       </Container>
     </Wrapper>
