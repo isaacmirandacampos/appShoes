@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { RectButton } from 'react-native-gesture-handler';
 import colors from '../../styles/colors';
 
 export const Container = styled.View`
@@ -20,7 +19,9 @@ export const ImageProduct = styled.Image`
   width: 250px;
   flex: 3;
 `;
-export const Description = styled.Text`
+export const Description = styled.Text.attrs({
+  numberOfLines: 2,
+})`
   overflow: hidden;
   font-size: 20px;
   flex: 1;
