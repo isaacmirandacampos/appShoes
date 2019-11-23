@@ -9,9 +9,8 @@
 
 ## Challege
 
-This challenge of creating an app based on the netshoes app.
-I used redux and redux-saga for global states, Reactotron for debug, Styled-components for stylization.
+This challenge of creating an app based on the netshoes app. 
+I used  redux and redux-saga for global states, React Hooks, Reactotron for debug, Styled-components for stylization.
 This app communicate with fake REST API.
 
-  
-in last moment, i changed the code for React hooks.
+ 
