@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import formatPrice from '../../util/format';
 
@@ -31,23 +31,37 @@ import {
   TextBack,
 } from './styles';
 
-class Cart extends Component {
-  handlerDelete = id => {
-    const { RemoveProduct } = this.props;
-    RemoveProduct(id);
-  };
+export default function Cart({ navigation }) {
+  const cart = useSelector(state =>
+    state.cart.map(product => ({
+      ...product,
+      subTotal: formatPrice(product.amount * product.price),
+    }))
+  );
 
-  handleAddAmount = (id, amount) => {
-    const { UpdateAmountRequest } = this.props;
-    UpdateAmountRequest(id, amount + 1);
-  };
+  const total = useSelector(state =>
+    formatPrice(
+      state.cart.reduce((total, product) => {
+        return total + product.amount * product.price;
+      }, 0)
+    )
+  );
 
-  handleRemoveAmount = (id, amount) => {
-    const { UpdateAmountRequest } = this.props;
-    UpdateAmountRequest(id, amount - 1);
-  };
+  const dispatch = useDispatch();
 
-  handlerRender = ({ item }) => {
+  function handlerDelete(id) {
+    dispatch(CartActions.RemoveProduct(id));
+  }
+
+  function handleAddAmount(id, amount) {
+    dispatch(CartActions.UpdateAmountRequest(id, amount + 1));
+  }
+
+  function handleRemoveAmount(id, amount) {
+    dispatch(CartActions.UpdateAmountRequest(id, amount - 1));
+  }
+
+  function handlerRender({ item }) {
     return (
       <WrapperProduct key={item.id}>
         <Product>
@@ -56,7 +70,7 @@ class Cart extends Component {
             <Description>{item.title}</Description>
             <WrapperPriceDelete>
               <Price>{item.priceFormatted}</Price>
-              <WrapperButton onPress={() => this.handlerDelete(item.id)}>
+              <WrapperButton onPress={() => handlerDelete(item.id)}>
                 <Icon name="delete-forever" size={24} color={colors.primary} />
               </WrapperButton>
             </WrapperPriceDelete>
@@ -65,7 +79,7 @@ class Cart extends Component {
         <SubTotalView>
           <CountView>
             <WrapperButton
-              onPress={() => this.handleRemoveAmount(item.id, item.amount)}
+              onPress={() => handleRemoveAmount(item.id, item.amount)}
             >
               <Icon
                 name="remove-circle-outline"
@@ -75,7 +89,7 @@ class Cart extends Component {
             </WrapperButton>
             <Amount editable={false}>{item.amount}</Amount>
             <WrapperButton
-              onPress={() => this.handleAddAmount(item.id, item.amount)}
+              onPress={() => handleAddAmount(item.id, item.amount)}
             >
               <Icon
                 name="add-circle-outline"
@@ -88,48 +102,28 @@ class Cart extends Component {
         </SubTotalView>
       </WrapperProduct>
     );
-  };
-
-  render() {
-    const { cart, total, navigation } = this.props;
-    console.tron.log(cart);
-    return cart[0] ? (
-      <Container>
-        <FlatList
-          data={cart}
-          keyExtractor={item => item.id}
-          showsVerticalScrollIndicator={false}
-          renderItem={this.handlerRender}
-        />
-        <TextTotal>Total</TextTotal>
-        <PriceTotal>{total}</PriceTotal>
-        <BuyButton>
-          <TextBuyButton>Finalizar pedido</TextBuyButton>
-        </BuyButton>
-      </Container>
-    ) : (
-      <CartEmpty>
-        <Icon name="shopping-cart" size={300} color="#aaa" />
-        <BackToHome onPress={() => navigation.goBack()}>
-          <TextBack>Voltar para loja</TextBack>
-        </BackToHome>
-      </CartEmpty>
-    );
   }
+
+  return cart[0] ? (
+    <Container>
+      <FlatList
+        data={cart}
+        keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
+        renderItem={handlerRender}
+      />
+      <TextTotal>Total</TextTotal>
+      <PriceTotal>{total}</PriceTotal>
+      <BuyButton>
+        <TextBuyButton>Finalizar pedido</TextBuyButton>
+      </BuyButton>
+    </Container>
+  ) : (
+    <CartEmpty>
+      <Icon name="shopping-cart" size={300} color="#aaa" />
+      <BackToHome onPress={() => navigation.goBack()}>
+        <TextBack>Voltar para loja</TextBack>
+      </BackToHome>
+    </CartEmpty>
+  );
 }
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(CartActions, dispatch);
-
-const mapStateToProps = state => ({
-  cart: state.cart.map(product => ({
-    ...product,
-    subTotal: formatPrice(product.amount * product.price),
-  })),
-  total: formatPrice(
-    state.cart.reduce((total, product) => {
-      return total + product.amount * product.price;
-    }, 0)
-  ),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);

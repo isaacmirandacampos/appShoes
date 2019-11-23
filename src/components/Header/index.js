@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   Wrapper,
@@ -10,7 +10,8 @@ import {
   LogoContainer,
 } from './styles';
 
-function Header({ onPress, goBack, cartSize }) {
+export default function Header({ goBack, onPress }) {
+  const cartSize = useSelector(state => state.cart.length);
   return (
     <Wrapper>
       <Container>
@@ -25,8 +26,3 @@ function Header({ onPress, goBack, cartSize }) {
     </Wrapper>
   );
 }
-const mapStateToProps = state => ({
-  cartSize: state.cart.length,
-});
-
-export default connect(mapStateToProps)(Header);
