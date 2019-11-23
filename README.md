@@ -14,3 +14,4 @@ I used redux and redux-saga for global states, Reactotron for debug, Styled-comp
 This app communicate with fake REST API.
 
   
+in last moment, i changed the code for React hooks.
